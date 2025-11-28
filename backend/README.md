@@ -2,7 +2,38 @@
 
 Flask-based REST API for the SafeHer harassment reporting system.
 
-## Setup Instructions
+## Quick Setup (Recommended)
+
+Run the automated setup script to configure everything in one go:
+
+```bash
+cd backend
+chmod +x setup.sh
+./setup.sh
+```
+
+This script will:
+1. ✅ Check Python version (requires 3.10+)
+2. ✅ Create virtual environment
+3. ✅ Install all dependencies
+4. ✅ Create `.env` file with secure random keys
+5. ✅ Create uploads directory
+6. ✅ Initialize database
+7. ✅ Run migrations
+8. ✅ Seed admin user
+
+After setup completes, start the server:
+
+```bash
+source venv/bin/activate
+python app.py
+```
+
+The API will be available at `http://localhost:5000`
+
+## Manual Setup
+
+If you prefer to set up manually:
 
 ### 1. Create Virtual Environment
 
@@ -19,10 +50,12 @@ pip install -r requirements.txt
 
 ### 3. Configure Environment
 
-Create a `.env` file in the `backend/` directory:
+Create a `.env` file in the `backend/` directory. The setup script creates this automatically, or you can create it manually:
 
 ```bash
-cp .env.example .env
+# Generate secure keys
+python3 -c "import secrets; print('JWT_SECRET_KEY=' + secrets.token_urlsafe(32))"
+python3 -c "import secrets; print('SECRET_KEY=' + secrets.token_urlsafe(32))"
 ```
 
 Edit `.env` and set:
@@ -40,7 +73,13 @@ python -c "from app import create_app; from extensions import db; app = create_a
 
 Or simply run the app once - tables are created automatically.
 
-### 5. Seed Admin User
+### 5. Run Migrations (if needed)
+
+```bash
+python migrate_reports.py
+```
+
+### 6. Seed Admin User
 
 ```bash
 python seed_admin.py
@@ -52,7 +91,7 @@ This creates the initial admin user:
 
 **⚠️ IMPORTANT: Change the admin password after first login!**
 
-### 6. Run the Server
+### 7. Run the Server
 
 ```bash
 python app.py
