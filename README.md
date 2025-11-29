@@ -32,6 +32,8 @@ cd backend
 2. Create virtual environment:
 ```bash
 python3 -m venv venv
+or fo windows;(python -m venv venv)
+
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
