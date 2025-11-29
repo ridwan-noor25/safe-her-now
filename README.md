@@ -91,8 +91,8 @@ After running `seed_admin.py`:
 
 - **Email**: `admin@savegirls.com`
 - **Password**: `ridwa12345`
-
-**⚠️ IMPORTANT: Change the admin password immediately after first login!**
+  
+**⚠️ IMPORTANT Requirement: Change the admin password immediately after first login!**
 
 ## Test Admin Login
 
