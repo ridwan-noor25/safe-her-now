@@ -54,7 +54,7 @@ const DashboardSidebar = ({ userRole, activeTab, onTabChange }: DashboardSidebar
   const items = getSidebarItems();
 
   return (
-    <aside className="w-64 bg-card border-r border-border h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto">
+    <aside className="w-64 bg-card border-r border-border h-screen fixed top-0 left-0 pt-16 overflow-y-auto z-40">
       <div className="p-6">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow">

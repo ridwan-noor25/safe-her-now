@@ -32,7 +32,9 @@ const Register = () => {
     setLoading(true);
 
     try {
+      console.log('Attempting registration with:', { email: formData.email, full_name: formData.full_name });
       const response = await authAPI.register(formData);
+      console.log('Registration response:', response.data);
       
       // Registration successful - redirect to login page
       navigate('/login', { 
@@ -42,7 +44,10 @@ const Register = () => {
         } 
       });
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Registration failed. Please try again.');
+      console.error('Registration error:', err);
+      console.error('Error response:', err.response);
+      console.error('Error message:', err.message);
+      setError(err.response?.data?.error || err.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }

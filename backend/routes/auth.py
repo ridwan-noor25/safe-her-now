@@ -15,7 +15,11 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """Register a new user (default role: 'user')"""
+    print(f"Register endpoint hit - Content-Type: {request.content_type}")
+    print(f"Request data: {request.data}")
+    
     data = request.get_json()
+    print(f"Parsed JSON: {data}")
     
     # Validation
     if not data or not data.get('email') or not data.get('password') or not data.get('full_name'):
@@ -53,7 +57,11 @@ def register():
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """Login user and return JWT token"""
+    print(f"Login endpoint hit - Content-Type: {request.content_type}")
+    print(f"Request data: {request.data}")
+    
     data = request.get_json()
+    print(f"Parsed JSON: {data}")
     
     if not data or not data.get('email') or not data.get('password'):
         return jsonify({'error': 'Email and password required'}), 400

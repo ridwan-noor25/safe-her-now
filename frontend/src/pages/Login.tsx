@@ -35,11 +35,14 @@ const Login = () => {
     setLoading(true);
 
     try {
+      console.log('Attempting login with:', { email });
       const response = await authAPI.login({ email, password });
+      console.log('Login response:', response.data);
       const { access_token, role, user } = response.data;
 
       // Validate token format before storing
       if (!access_token || typeof access_token !== 'string') {
+        console.error('Invalid token received:', access_token);
         setError('Invalid token received from server');
         return;
       }
@@ -47,6 +50,7 @@ const Login = () => {
       // Check token format (JWT should have 3 parts separated by dots)
       const tokenParts = access_token.split('.');
       if (tokenParts.length !== 3) {
+        console.error('Invalid token format:', access_token);
         setError('Invalid token format received from server');
         return;
       }
@@ -69,7 +73,9 @@ const Login = () => {
       }, 100);
     } catch (err: any) {
       console.error('Login error:', err);
-      setError(err.response?.data?.error || 'Login failed. Please check your credentials.');
+      console.error('Error response:', err.response);
+      console.error('Error message:', err.message);
+      setError(err.response?.data?.error || err.message || 'Login failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Shield, ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-shield.jpg";
 
 const Hero = () => {
   return (
@@ -64,9 +63,12 @@ const Hero = () => {
           <div className="relative animate-fade-in animation-delay-300">
             <div className="absolute inset-0 bg-gradient-primary blur-3xl opacity-20 animate-float" />
             <img 
-              src={heroImage} 
-              alt="SafeHer AI Protection Shield" 
-              className="relative rounded-3xl shadow-lg-custom w-full"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPKIbbTwsk8Ts2WTAj9VGo8B0gUoa5LGsO0w&s" 
+              alt="SafeHer AI Protection - Empowering Women" 
+              className="relative rounded-3xl shadow-lg-custom w-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "https://via.placeholder.com/800x800/1e293b/06b6d4?text=SafeHer+Protection";
+              }}
             />
           </div>
         </div>

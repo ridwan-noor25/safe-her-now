@@ -24,11 +24,21 @@ def create_app():
     app.config.from_object(Config)
     
     # Enable CORS for frontend - allow all localhost ports for development
+    # Using regex pattern to allow all local network IPs and localhost variants
     CORS(app, 
-         origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:8080', 'http://127.0.0.1:8080'],
+         origins=[
+             'http://localhost:5173', 
+             'http://localhost:3000', 
+             'http://localhost:8080', 
+             'http://127.0.0.1:8080',
+             'http://192.168.142.246:8080',
+             'http://192.168.142.246:5173'
+         ],
          supports_credentials=True,
-         allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+         allow_headers=['Content-Type', 'Authorization', 'Accept'],
+         expose_headers=['Content-Type', 'Authorization'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+         max_age=3600)
     
     # Initialize extensions
     db.init_app(app)

@@ -226,7 +226,7 @@ const UserDashboard = () => {
           activeTab={activeTab} 
           onTabChange={setActiveTab} 
         />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-8 ml-64">
           <div className="max-w-6xl mx-auto">
             {renderContent()}
           </div>

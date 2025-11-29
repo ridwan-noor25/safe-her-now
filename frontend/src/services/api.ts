@@ -11,7 +11,9 @@ const api: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
+  withCredentials: true, // Important for CORS with credentials
 });
 
 // Request interceptor: Add JWT token to requests
