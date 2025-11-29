@@ -221,3 +221,6 @@ python seed_admin.py  # Recreates admin
 ## License
 
 This project is provided as-is for development purposes.
+
+## Github Repository: 
+https://github.com/ridwan-noor25/safe-her-now.git

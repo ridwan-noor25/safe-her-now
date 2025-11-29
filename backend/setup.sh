@@ -1,8 +1,3 @@
-#!/bin/bash
-
-# SafeHer Backend Setup Script
-# This script sets up the complete backend environment in one go
-
 set -e  # Exit on any error
 
 # Colors for output
