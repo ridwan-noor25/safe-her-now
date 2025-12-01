@@ -1,53 +1,37 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import api from "../lib/axios";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
 
-const Register: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+const Register = () => {
+  const nav = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const change = (e: any) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const submit = async (e: any) => {
     e.preventDefault();
-    // TODO: call API to register
-    console.log("register", { email });
-    navigate("/user-dashboard");
+    await api.post("/auth/register", form);
+    nav("/");
   };
 
   return (
-    <Layout>
-      <div className="responsive-container py-12">
-        <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-          <h1 className="text-xl font-semibold">Create an account</h1>
+    <div>
+      <h1>Register</h1>
 
-          <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-            <label className="block">
-              <span className="text-sm">Email</span>
-              <input
-                type="email"
-                className="mt-2 w-full p-3 border rounded"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
+      <form onSubmit={submit}>
+        <input name="name" placeholder="Name" onChange={change} />
+        <input name="email" placeholder="Email" onChange={change} />
+        <input name="password" placeholder="Password" type="password" onChange={change} />
 
-            <label className="block">
-              <span className="text-sm">Password</span>
-              <input
-                type="password"
-                className="mt-2 w-full p-3 border rounded"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-
-            <button className="w-full px-4 py-2 bg-indigo-600 text-white rounded">Register</button>
-          </form>
-        </div>
-      </div>
-    </Layout>
+        <button>Submit</button>
+      </form>
+    </div>
   );
 };
 

@@ -1,56 +1,42 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
+import { useState, useContext } from "react";
+import api from "../lib/axios";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+const Login = () => {
+  const ctx = useContext(AuthContext);
+  const nav = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [form, setForm] = useState({ email: "", password: "" });
+
+  const change = (e: any) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const submit = async (e: any) => {
     e.preventDefault();
-    // TODO: call API to login, set auth token, redirect
-    console.log("login", { email });
-    navigate("/user-dashboard");
+
+    const res = await api.post("/auth/login", form);
+    ctx?.login(res.data.token, res.data.user);
+
+    nav("/dashboard");
   };
 
   return (
-    <Layout>
-      <div className="responsive-container py-12">
-        <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-          <h1 className="text-xl font-semibold">Log in</h1>
+    <div>
+      <h1>Login</h1>
 
-          <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-            <label className="block">
-              <span className="text-sm">Email</span>
-              <input
-                type="email"
-                className="mt-2 w-full p-3 border rounded"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
+      <form onSubmit={submit}>
+        <input name="email" placeholder="Email" onChange={change} />
+        <input
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={change}
+        />
 
-            <label className="block">
-              <span className="text-sm">Password</span>
-              <input
-                type="password"
-                className="mt-2 w-full p-3 border rounded"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-
-            <div className="flex items-center justify-between">
-              <button className="px-4 py-2 bg-indigo-600 text-white rounded">Log in</button>
-              <Link to="/register" className="text-sm text-indigo-600">Create account</Link>
-            </div>
-          </form>
-        </div>
-      </div>
-    </Layout>
+        <button>Login</button>
+      </form>
+    </div>
   );
 };
 
